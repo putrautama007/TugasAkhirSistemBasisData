@@ -537,7 +537,6 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         );
 
         tabel_penjualan.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        tabel_penjualan.setForeground(new java.awt.Color(255, 255, 255));
         tabel_penjualan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
