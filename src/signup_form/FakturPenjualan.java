@@ -12,16 +12,26 @@ import java.sql.Date;
  * @author DBSS075
  */
 class FakturPenjualan {
+    private String id_faktur;
     private String kode_obat;
     private int jml_obat;
     private Date tgl_jual;
     private String id_karyawan;
     
-    public FakturPenjualan(String kode_obat,int jml_obat,Date tgl_jual,String id_karyawan){
+    public FakturPenjualan(String id_faktur,String kode_obat,int jml_obat,Date tgl_jual,String id_karyawan){
+        this.id_faktur = id_faktur;
         this.kode_obat = kode_obat;
         this.jml_obat = jml_obat;
         this.tgl_jual = tgl_jual;
         this.id_karyawan = id_karyawan;
+    }
+
+    public String getId_faktur() {
+        return id_faktur;
+    }
+
+    public void setId_faktur(String id_faktur) {
+        this.id_faktur = id_faktur;
     }
 
     public String getKode_obat() {

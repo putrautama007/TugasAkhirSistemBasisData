@@ -41,7 +41,7 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
             rs = st.executeQuery(queryl);
             FakturPenjualan fakturPenjualan;
             while(rs.next()){
-                fakturPenjualan = new FakturPenjualan(rs.getString("kode_obat"), rs.getInt("jml_obat")
+                fakturPenjualan = new FakturPenjualan(rs.getString("id_faktur"),rs.getString("kode_obat"), rs.getInt("jml_obat")
                         ,rs.getDate("tgl_jual"), rs.getString("id_supplier"));
                 faktur.add(fakturPenjualan);
             }
@@ -53,12 +53,13 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
     public  void show_faktur(){
         ArrayList<FakturPenjualan> faktur_list = faktur();
         DefaultTableModel model = (DefaultTableModel )tabel_penjualan.getModel(); 
-        Object[] row = new Object[4];
+        Object[] row = new Object[5];
         for (int i = 0; i < faktur_list.size(); i++) {
-            row[0]= faktur_list.get(i).getKode_obat();
-            row[1]= faktur_list.get(i).getJml_obat();
-            row[2]= faktur_list.get(i).getTgl_jual();
-            row[3]= faktur_list.get(i).getId_karyawan();
+            row[0]= faktur_list.get(i).getId_faktur();
+            row[1]= faktur_list.get(i).getKode_obat();
+            row[2]= faktur_list.get(i).getJml_obat();
+            row[3]= faktur_list.get(i).getTgl_jual();
+            row[4]= faktur_list.get(i).getId_karyawan();
             model.addRow(row);
         }
         }
@@ -77,10 +78,10 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         jml_obat = new javax.swing.JLabel();
         tgl_penjualan = new javax.swing.JLabel();
         total_bayar = new javax.swing.JLabel();
-        txt1 = new javax.swing.JTextField();
         txt2 = new javax.swing.JTextField();
         txt3 = new javax.swing.JTextField();
         txt4 = new javax.swing.JTextField();
+        txt5 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         reset_penjualan = new javax.swing.JButton();
         input_penjualan = new javax.swing.JButton();
@@ -90,6 +91,9 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
+        jml_obat2 = new javax.swing.JLabel();
+        txt1 = new javax.swing.JTextField();
+        jSeparator13 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         Home = new javax.swing.JButton();
         Karyawan = new javax.swing.JButton();
@@ -110,10 +114,9 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         jml_obat1 = new javax.swing.JLabel();
         tgl_penjualan1 = new javax.swing.JLabel();
         total_bayar1 = new javax.swing.JLabel();
-        txt5 = new javax.swing.JTextField();
         txt6 = new javax.swing.JTextField();
-        txt7 = new javax.swing.JTextField();
         txt8 = new javax.swing.JTextField();
+        txt10 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         delete_penjualan = new javax.swing.JButton();
         update_penjualan = new javax.swing.JButton();
@@ -125,6 +128,10 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         jSeparator10 = new javax.swing.JSeparator();
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
+        tgl_penjualan2 = new javax.swing.JLabel();
+        txt7 = new javax.swing.JTextField();
+        jSeparator14 = new javax.swing.JSeparator();
+        txt9 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,21 +149,10 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         total_bayar.setForeground(new java.awt.Color(204, 204, 204));
         total_bayar.setText("Tgl Jual");
 
-        txt1.setBackground(new java.awt.Color(36, 47, 65));
-        txt1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt1.setForeground(new java.awt.Color(204, 204, 204));
-        txt1.setText("Enter Kode Obat");
-        txt1.setBorder(null);
-        txt1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txt1MouseClicked(evt);
-            }
-        });
-
         txt2.setBackground(new java.awt.Color(36, 47, 65));
         txt2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt2.setForeground(new java.awt.Color(204, 204, 204));
-        txt2.setText("Enter Jumlah Obat");
+        txt2.setText("Enter Kode Obat");
         txt2.setBorder(null);
         txt2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -167,7 +163,7 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         txt3.setBackground(new java.awt.Color(36, 47, 65));
         txt3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt3.setForeground(new java.awt.Color(204, 204, 204));
-        txt3.setText("Enter Tgl Jual");
+        txt3.setText("Enter Jumlah Obat");
         txt3.setBorder(null);
         txt3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -178,11 +174,22 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         txt4.setBackground(new java.awt.Color(36, 47, 65));
         txt4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt4.setForeground(new java.awt.Color(204, 204, 204));
-        txt4.setText("Enter ID Supplier");
+        txt4.setText("Enter Tgl Jual");
         txt4.setBorder(null);
         txt4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt4MouseClicked(evt);
+            }
+        });
+
+        txt5.setBackground(new java.awt.Color(36, 47, 65));
+        txt5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt5.setForeground(new java.awt.Color(204, 204, 204));
+        txt5.setText("Enter ID Supplier");
+        txt5.setBorder(null);
+        txt5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt5MouseClicked(evt);
             }
         });
 
@@ -236,6 +243,30 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         jSeparator8.setForeground(new java.awt.Color(204, 204, 204));
         jSeparator8.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
 
+        jml_obat2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jml_obat2.setForeground(new java.awt.Color(204, 204, 204));
+        jml_obat2.setText("ID Faktur");
+
+        txt1.setBackground(new java.awt.Color(36, 47, 65));
+        txt1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt1.setForeground(new java.awt.Color(204, 204, 204));
+        txt1.setText("Enter ID Faktur");
+        txt1.setBorder(null);
+        txt1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt1MouseClicked(evt);
+            }
+        });
+        txt1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt1ActionPerformed(evt);
+            }
+        });
+
+        jSeparator13.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator13.setForeground(new java.awt.Color(204, 204, 204));
+        jSeparator13.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -259,7 +290,8 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
                                         .addContainerGap()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jml_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tgl_penjualan))
+                                            .addComponent(tgl_penjualan)
+                                            .addComponent(jml_obat2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(53, 53, 53)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jSeparator5)
@@ -267,14 +299,17 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
                                         .addComponent(input_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(reset_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txt3, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                                    .addComponent(txt4, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                                    .addComponent(txt2, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                                    .addComponent(txt1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                                    .addComponent(txt4)
+                                    .addComponent(txt5)
+                                    .addComponent(txt3)
+                                    .addComponent(txt2)
                                     .addComponent(jSeparator6)
                                     .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jSeparator8))))
-                        .addGap(0, 18, Short.MAX_VALUE))
+                                    .addComponent(jSeparator8)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jSeparator13)
+                                        .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 6, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -287,27 +322,37 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jml_obat2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)
+                        .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jml_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tgl_penjualan))
                 .addGap(2, 2, 2)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(total_bayar))
                 .addGap(3, 3, 3)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(no_antrian))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,7 +360,7 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reset_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 126, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(97, 212, 195));
@@ -542,11 +587,11 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Kode Obat", "Jumlah Obat", "Tgl Jual", "ID Supplier"
+                "ID Faktur", "Kode Obat", "Jumlah Obat", "Tgl Jual", "ID Supplier"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, false, true
+                true, true, true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -565,7 +610,7 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
 
         jml_obat1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jml_obat1.setForeground(new java.awt.Color(204, 204, 204));
-        jml_obat1.setText("Kode Obat");
+        jml_obat1.setText("No Faktur");
 
         tgl_penjualan1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         tgl_penjualan1.setForeground(new java.awt.Color(204, 204, 204));
@@ -575,31 +620,26 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         total_bayar1.setForeground(new java.awt.Color(204, 204, 204));
         total_bayar1.setText("Tgl Jual");
 
-        txt5.setBackground(new java.awt.Color(36, 47, 65));
-        txt5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt5.setForeground(new java.awt.Color(204, 204, 204));
-        txt5.setText("Enter Kode Obat");
-        txt5.setBorder(null);
-        txt5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txt5MouseClicked(evt);
-            }
-        });
-
         txt6.setBackground(new java.awt.Color(36, 47, 65));
         txt6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt6.setForeground(new java.awt.Color(204, 204, 204));
+        txt6.setText("Enter No Faktur");
         txt6.setBorder(null);
-
-        txt7.setBackground(new java.awt.Color(36, 47, 65));
-        txt7.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt7.setForeground(new java.awt.Color(204, 204, 204));
-        txt7.setBorder(null);
+        txt6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt6MouseClicked(evt);
+            }
+        });
 
         txt8.setBackground(new java.awt.Color(36, 47, 65));
         txt8.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt8.setForeground(new java.awt.Color(204, 204, 204));
         txt8.setBorder(null);
+
+        txt10.setBackground(new java.awt.Color(36, 47, 65));
+        txt10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt10.setForeground(new java.awt.Color(204, 204, 204));
+        txt10.setBorder(null);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
@@ -666,14 +706,51 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         jSeparator12.setForeground(new java.awt.Color(204, 204, 204));
         jSeparator12.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
 
+        tgl_penjualan2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tgl_penjualan2.setForeground(new java.awt.Color(204, 204, 204));
+        tgl_penjualan2.setText("Kode Obat");
+
+        txt7.setBackground(new java.awt.Color(36, 47, 65));
+        txt7.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt7.setForeground(new java.awt.Color(204, 204, 204));
+        txt7.setBorder(null);
+
+        jSeparator14.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator14.setForeground(new java.awt.Color(204, 204, 204));
+        jSeparator14.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+
+        txt9.setBackground(new java.awt.Color(36, 47, 65));
+        txt9.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt9.setForeground(new java.awt.Color(204, 204, 204));
+        txt9.setBorder(null);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(90, 90, 90))
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tgl_penjualan2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jml_obat1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator12)
+                            .addComponent(txt6))
+                        .addGap(18, 18, 18)
+                        .addComponent(search_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(no_antrian1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -683,36 +760,20 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
                                     .addComponent(total_bayar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tgl_penjualan1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(54, 54, 54)))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator14)
+                            .addComponent(txt10, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                            .addComponent(txt8, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(update_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(delete_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator9)
-                            .addComponent(jSeparator10)
-                            .addComponent(jSeparator11)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jml_obat1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator12)
-                            .addComponent(txt5))
-                        .addGap(18, 18, 18)
-                        .addComponent(search_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator11, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txt7)
+                            .addComponent(txt9, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(90, 90, 90))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -724,27 +785,37 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(search_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jml_obat1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tgl_penjualan2)
+                    .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tgl_penjualan1))
                 .addGap(3, 3, 3)
                 .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(total_bayar1))
-                .addGap(3, 3, 3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(total_bayar1)
+                        .addGap(3, 3, 3))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(no_antrian1))
                 .addGap(4, 4, 4)
                 .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -752,7 +823,7 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(delete_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(update_penjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -788,6 +859,7 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         txt2.setText(null);
         txt3.setText(null);
         txt4.setText(null);
+        txt5.setText(null);
       
     }//GEN-LAST:event_reset_penjualanActionPerformed
 
@@ -908,11 +980,12 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
             String url = "jdbc:sqlserver://localhost:1433;databaseName=signup;user=sa;password=1sampai10";
             con = DriverManager.getConnection(url);
             java.sql.Statement st = con.createStatement();
-            rs = st.executeQuery("delete faktur_penjualan WHERE kode_obat = "+ txt5.getText());
-            txt5.setText(null);
-                txt6.setText(null);
+            rs = st.executeQuery("delete faktur_penjualan WHERE id_faktur = "+ txt6.getText());
+            txt6.setText(null);
                 txt7.setText(null);
                 txt8.setText(null);
+                txt9.setText(null);
+                txt10.setText(null);
                 DefaultTableModel model = (DefaultTableModel)tabel_penjualan.getModel();
                 model.setRowCount(0);
                 show_faktur();
@@ -928,12 +1001,13 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = "jdbc:sqlserver://localhost:1433;databaseName=signup;user=sa;password=1sampai10";
             con = DriverManager.getConnection(url);
-            String sql = " insert into faktur_penjualan(kode_obat,jml_obat,tgl_jual,id_supplier) values(?,?,?,?)";
+            String sql = " insert into faktur_penjualan(id_faktur,kode_obat,jml_obat,tgl_jual,id_supplier) values(?,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, txt1.getText());
             pst.setString(2, txt2.getText());
             pst.setString(3, txt3.getText());
             pst.setString(4, txt4.getText());
+            pst.setString(5, txt5.getText());
             pst.execute();
             DefaultTableModel model = (DefaultTableModel)tabel_penjualan.getModel();
             model.setRowCount(0);
@@ -952,16 +1026,18 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
             String url = "jdbc:sqlserver://localhost:1433;databaseName=signup;user=sa;password=1sampai10";
             con = DriverManager.getConnection(url);
             java.sql.Statement st = con.createStatement();
-            rs = st.executeQuery(" SELECT * FROM faktur_penjualan WHERE kode_obat = "+ txt5.getText()); 
+            rs = st.executeQuery(" SELECT * FROM faktur_penjualan WHERE id_faktur = "+ txt6.getText()); 
             if (rs.next()){
-                String i = txt5.getText();
-                String a = rs.getString("jml_obat");
-                String b = rs.getString("tgl_jual");
-                String d = rs.getString("id_supplier");
-                txt6.setText(a);
-                txt7.setText(b);
-                txt8.setText(d);
-                txt5.getText();
+                String i = txt6.getText();
+                String a = rs.getString("kode_obat");
+                String b = rs.getString("jml_obat");
+                String d = rs.getString("tgl_jual");
+                String e = rs.getString("id_supplier");
+                txt7.setText(a);
+                txt8.setText(b);
+                txt9.setText(d);
+                txt10.setText(e);
+                txt6.getText();
             } else if(!rs.next()){
                 JOptionPane.showMessageDialog(null, "Invalid Kode Obat");
             }
@@ -977,19 +1053,22 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
             String url = "jdbc:sqlserver://localhost:1433;databaseName=signup;user=sa;password=1sampai10";
             con = DriverManager.getConnection(url);
             java.sql.Statement st = con.createStatement();
-            rs = st.executeQuery("update faktur_penjualan set jml_obat = "+txt6.getText()+
+            rs = st.executeQuery("update faktur_penjualan set kode_obat ='"+txt7.getText()
+                    + "',jml_obat = "+txt8.getText()+
                      ",tgl_jual = '"+txt7.getText()+
-                     "',id_supplier = '"+txt8.getText()+
-                     "' WHERE kode_obat = '"+txt5.getText()+"'");             
+                     "',id_supplier = '"+txt10.getText()+
+                     "' WHERE id_faktur = '"+txt6.getText()+"'");             
              if(rs.next()){                
-               String i = txt5.getText();
-               String a = rs.getString("jml_obat");
-                String b = rs.getString("tgl_jual");
-                String d = rs.getString("id_supplier");
-                txt6.setText(a);
-                txt7.setText(b);
-                txt8.setText(d);
-                txt5.getText();                
+              String i = txt6.getText();
+                String a = rs.getString("kode_obat");
+                String b = rs.getString("jml_obat");
+                String d = rs.getString("tgl_jual");
+                String e = rs.getString("id_supplier");
+                txt7.setText(a);
+                txt8.setText(b);
+                txt9.setText(d);
+                txt10.setText(e);
+                txt6.getText();                
              }            
              DefaultTableModel model = (DefaultTableModel)tabel_penjualan.getModel(); 
              model.setRowCount(0);
@@ -1003,16 +1082,12 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         // TODO add your handling code here:
         int i = tabel_penjualan.getSelectedRow();
         TableModel model = tabel_penjualan.getModel();
-        txt5.setText(model.getValueAt(i,0).toString());
-        txt6.setText(model.getValueAt(i,1).toString());
-        txt7.setText(model.getValueAt(i,2).toString());
-        txt8.setText(model.getValueAt(i,3).toString());
+        txt6.setText(model.getValueAt(i,0).toString());
+        txt7.setText(model.getValueAt(i,1).toString());
+        txt8.setText(model.getValueAt(i,2).toString());
+        txt9.setText(model.getValueAt(i,3).toString());
+        txt10.setText(model.getValueAt(i,4).toString());
     }//GEN-LAST:event_tabel_penjualanMouseClicked
-
-    private void txt1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt1MouseClicked
-        // TODO add your handling code here:
-        txt1.setText("");
-    }//GEN-LAST:event_txt1MouseClicked
 
     private void txt2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt2MouseClicked
         // TODO add your handling code here:
@@ -1033,6 +1108,21 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
         // TODO add your handling code here:
         txt5.setText("");
     }//GEN-LAST:event_txt5MouseClicked
+
+    private void txt6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt6MouseClicked
+        // TODO add your handling code here:
+        txt6.setText("");
+    }//GEN-LAST:event_txt6MouseClicked
+
+    private void txt1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt1MouseClicked
+        // TODO add your handling code here:
+        txt1.setText(null);
+    }//GEN-LAST:event_txt1MouseClicked
+
+    private void txt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt1ActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_txt1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1094,6 +1184,8 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1104,6 +1196,7 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel jml_obat;
     private javax.swing.JLabel jml_obat1;
+    private javax.swing.JLabel jml_obat2;
     private javax.swing.JLabel no_antrian;
     private javax.swing.JLabel no_antrian1;
     private javax.swing.JButton reset_penjualan;
@@ -1111,9 +1204,11 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
     private javax.swing.JTable tabel_penjualan;
     private javax.swing.JLabel tgl_penjualan;
     private javax.swing.JLabel tgl_penjualan1;
+    private javax.swing.JLabel tgl_penjualan2;
     private javax.swing.JLabel total_bayar;
     private javax.swing.JLabel total_bayar1;
     private javax.swing.JTextField txt1;
+    private javax.swing.JTextField txt10;
     private javax.swing.JTextField txt2;
     private javax.swing.JTextField txt3;
     private javax.swing.JTextField txt4;
@@ -1121,6 +1216,7 @@ public class FakturPenjualan_data extends javax.swing.JFrame {
     private javax.swing.JTextField txt6;
     private javax.swing.JTextField txt7;
     private javax.swing.JTextField txt8;
+    private javax.swing.JTextField txt9;
     private javax.swing.JButton update_penjualan;
     // End of variables declaration//GEN-END:variables
 }

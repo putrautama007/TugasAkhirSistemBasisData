@@ -93,11 +93,13 @@ jabatan varchar(50),
 --wildan
 
 CREATE TABLE faktur_penjualan(
+id_faktur varchar(10) PRIMARY KEY,
 kode_obat varchar(5) FOREIGN KEY REFERENCES obat(kode_obat),
 jml_obat int,
 tgl_jual date,
-id_supplier int FOREIGN KEY REFERENCES supplier(id_supplier),
+id_supplier int FOREIGN KEY REFERENCES supplier(id_supplier)
 ) 
+
 
 select * from faktur_penjualan
 
@@ -119,17 +121,7 @@ hubungan varchar(50),
 id_karyawan varchar(10) FOREIGN KEY REFERENCES karyawan(id_karyawan),
 )
 
- select * from tanggungan
-drop table resep_dokter
-drop table konsumen
-drop table cabang
-drop table karyawan
-drop table obat
-drop table supplier
-drop table jabatan
-drop table gaji
-drop table tanggungan
-drop table faktur_penjualan
+
 
 insert into supplier values (111,'Cahaya Abadi Pharmacy', 'Jl. Kenanga no. 16, Pasuruan', '087123456110');
 insert into supplier values (122,'Graha Sari Medika', 'Jl. Soekarno Hatta no. 42, Bangkalan', '081822946110');
@@ -231,25 +223,25 @@ insert into konsumen (no_antre, nama_konsumen, alamat_konsumen,no_cabang) values
 (18, 'Nabila Fariandani', 'Jl. Dewandaru Dalam no 28, Malang',01); 
 
 
-insert into faktur_penjualan values('0002',1,'2017-10-10',122);
-insert into faktur_penjualan values('0012',2,'2017-10-01',002)
-insert into faktur_penjualan values('0011',3,'2017-10-04',738)
-insert into faktur_penjualan values('0003',1,'2017-10-22',061)
-insert into faktur_penjualan values('0001',3,'2017-10-09',111)
-insert into faktur_penjualan values('0005',2,'2017-09-11',337)
-insert into faktur_penjualan values('0006',1,'2017-09-08',980)
-insert into faktur_penjualan values('0006',3,'2017-09-05',980)
-insert into faktur_penjualan values('0012',5,'2017-09-16',002)
-insert into faktur_penjualan values('0019',2,'2017-09-14',111)
-insert into faktur_penjualan values('0020',2,'2017-09-10',980)
-insert into faktur_penjualan values('0011',3,'2017-09-02',738)
-insert into faktur_penjualan values('0016',5,'2017-09-01',318)
-insert into faktur_penjualan values('0004',1,'2017-08-11',465)
-insert into faktur_penjualan values('0009',2,'2017-08-16',241)
-insert into faktur_penjualan values('0010',3,'2017-08-05',156)
-insert into faktur_penjualan values('0015',1,'2017-07-11',129)
-insert into faktur_penjualan values('0013',1,'2017-07-12',081)
-insert into faktur_penjualan values('0012',2,'2017-08-19',002)
+insert into faktur_penjualan values('101','0002',1,'2017-10-10',122);
+insert into faktur_penjualan values('102','0012',2,'2017-10-01',002)
+insert into faktur_penjualan values('103','0011',3,'2017-10-04',738)
+insert into faktur_penjualan values('104','0003',1,'2017-10-22',061)
+insert into faktur_penjualan values('105','0001',3,'2017-10-09',111)
+insert into faktur_penjualan values('106','0005',2,'2017-09-11',337)
+insert into faktur_penjualan values('107','0006',1,'2017-09-08',980)
+insert into faktur_penjualan values('108','0006',3,'2017-09-05',980)
+insert into faktur_penjualan values('109','0012',5,'2017-09-16',002)
+insert into faktur_penjualan values('110','0019',2,'2017-09-14',111)
+insert into faktur_penjualan values('111','0020',2,'2017-09-10',980)
+insert into faktur_penjualan values('112','0011',3,'2017-09-02',738)
+insert into faktur_penjualan values('113','0016',5,'2017-09-01',318)
+insert into faktur_penjualan values('114','0004',1,'2017-08-11',465)
+insert into faktur_penjualan values('115','0009',2,'2017-08-16',241)
+insert into faktur_penjualan values('116','0010',3,'2017-08-05',156)
+insert into faktur_penjualan values('117','0015',1,'2017-07-11',129)
+insert into faktur_penjualan values('118','0013',1,'2017-07-12',081)
+insert into faktur_penjualan values('119','0012',2,'2017-08-19',002)
 
 insert into tanggungan values ('Azka','2000-12-12','Perempuan','anak','k001')
 insert into tanggungan values ('Arynda','1989-01-26','Perempuan','istri','k002')
@@ -313,3 +305,15 @@ insert into gaji values ('SUKIJAN','karyawan',1500000,150000,'k017')
 insert into gaji values ('DANDI','karyawan',1500000,175000,'k018')
 insert into gaji values ('NAIRA','karyawan',1500000,200000,'k019')
 insert into gaji values ('FATHUR','karyawan',1500000,200000,'k020')
+
+select distinct karyawan.id_karyawan,karyawan.nama_karyawan,jabatan.jabatan,cabang.nama_cabang , (gaji.gaji_pokok+gaji.tunjangan) as Total_Gaji
+from karyawan left join cabang on karyawan.no_cabang = cabang.no_cabang
+left join jabatan on karyawan.id_karyawan = jabatan.id_krw 
+left join gaji on karyawan.id_karyawan = gaji.id_karyawan 
+order by Total_Gaji DESC
+
+
+select supplier.nama_supplier, supplier.alamat_supplier, supplier.no_tlp_supplier,nama_obat,kadaluarsa,harga, id_faktur
+from supplier ,obat 
+join faktur_penjualan on faktur_penjualan.kode_obat = obat.kode_obat
+where kadaluarsa < '2017-09-01' and kadaluarsa > '2017-06-31'
